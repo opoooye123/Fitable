@@ -1,5 +1,5 @@
-import BookingForm from '@/components/booking-form'
-import Image from 'next/image'
+import { Suspense } from "react";
+import BookingForm from "@/components/booking-form";
 
 export default function BookAppointmentPage() {
   return (
@@ -13,8 +13,10 @@ export default function BookAppointmentPage() {
         </p>
       </div>
       <div className="mt-10 w-full max-w-2xl">
-        <BookingForm />
+        <Suspense fallback={<div>Loading form...</div>}>
+          <BookingForm />
+        </Suspense>
       </div>
     </div>
-  )
+  );
 }
