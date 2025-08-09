@@ -1,25 +1,33 @@
-"use client"
+'use client'
 
 import { useState } from "react"
 import { useSearchParams } from "next/navigation"
-import { useActionState } from "react-dom"
+import { useActionState } from "react"
+
+type BookingState = {
+  success: string
+  error: string
+}
 
 export default function BookingForm() {
   const searchParams = useSearchParams()
   const selectedService = searchParams.get("service") || ""
-  const [formState, formAction, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
-      // Here you would send form data to your API route
+
+  const [formState, formAction, isPending] = useActionState<
+    BookingState,
+    FormData // <--- 2nd generic = payload type
+  >(
+    async (prevState: BookingState, formData: FormData) => {
       const res = await fetch("/api/book", {
         method: "POST",
         body: formData,
       })
       if (!res.ok) {
-        return { error: "Something went wrong. Please try again." }
+        return { success: "", error: "Something went wrong. Please try again." }
       }
-      return { success: "Your appointment is booked!" }
+      return { success: "Your appointment is booked!", error: "" }
     },
-    { success: "", error: "" } // initial state
+    { success: "", error: "" }
   )
 
   const [name, setName] = useState("")
