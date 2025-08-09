@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     // Send email using Resend
     const { data, error } = await resend.emails.send({
       from: 'Fitables Beauty Bar <onboarding@resend.dev>', // Replace with your verified Resend domain email
-      to: 'your-salon-email@example.com', // Replace with the actual email address where you want to receive bookings
+      to: 'amnotpissed@gmail.com', // Replace with the actual email address where you want to receive bookings
       subject: `New Booking Request from ${name} - Fitables Beauty Bar`,
       html: `
         <div style="font-family: sans-serif; line-height: 1.6;">
